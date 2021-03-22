@@ -47,7 +47,7 @@ const sendTransaction = async (sender, receiver, amount) =>{
          const tr = new Transaction({
             sender: sender.email,
             receiver:receiver.email,
-            amount:parseInt(amount),
+            amount:web3.utils.fromWei(amount, 'ether'),
             senderAddress:senderAcc,
             receiverAddress:receiverAcc,
             transactionHash:transaction.transactionHash  

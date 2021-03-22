@@ -19,9 +19,9 @@ const signupBonus = async (user) =>{
     user.reward = true
     await user.save();
     const tr = new Transaction({
-        sender: user.email,
-        receiver:'admin@platform.com',
-        amount:parseInt(amount),
+        sender: 'admin@platform.com',
+        receiver:user.email,
+        amount: web3.utils.fromWei(amount, 'ether'),
         senderAddress:sender[0],
         receiverAddress:receiver,
         transactionHash:transaction.transactionHash  
