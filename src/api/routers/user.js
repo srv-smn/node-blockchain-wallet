@@ -9,7 +9,7 @@ import sharp from"sharp"
 import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from"../emails/mail"
 import getAddress from'../utils/userHelper'
 
-
+// user can signup
 router.post("/signup", async (req, res) => {
   const user = new User(req.body);
 
@@ -22,6 +22,8 @@ router.post("/signup", async (req, res) => {
     res.status(400).send(e);
   }
 });
+
+// user can verify their email
 
 router.post("/signup/verify", auth, async (req, res) => {
   const otp = req.body.otp;
@@ -39,6 +41,8 @@ router.post("/signup/verify", auth, async (req, res) => {
   }
 });
 
+// login with password
+
 router.post("/login/password", async (req, res) => {
   try {
     const user = await User.findByCredentials(
@@ -52,6 +56,8 @@ router.post("/login/password", async (req, res) => {
   }
 });
 
+// send otp to specified emailfor login
+
 router.post("/login/send-otp", async (req, res) => {
   try {
     const user = await User.findByEmail(req.body.email);
@@ -62,6 +68,7 @@ router.post("/login/send-otp", async (req, res) => {
   }
 });
 
+// enter the OTP, verify identity and login
 router.post("/login/verify-otp", async (req, res) => {
   try {
     const user = await User.findByOTP(req.body.email, req.body.otp);
@@ -79,6 +86,9 @@ router.post("/login/verify-otp", async (req, res) => {
   }
 });
 
+
+// add phrase to enbale get bonus and send receive token functinality
+
 router.post("/add-secret",auth,verify, async (req, res) => {
   try {
    const address = await getAddress(req.body.phrase)
@@ -91,6 +101,8 @@ router.post("/add-secret",auth,verify, async (req, res) => {
     res.status(400).send({'some thing went wrong':e});
   }
 });
+
+// logout
 
 router.post("/logout", auth, async (req, res) => {
   try {
@@ -105,6 +117,8 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
+// logout from all devices
+
 router.post("/logoutAll", auth, async (req, res) => {
   try {
     req.user.tokens = [];
@@ -115,10 +129,15 @@ router.post("/logoutAll", auth, async (req, res) => {
   }
 });
 
+
+// information obout profile 
+
 router.get("/me", auth, async (req, res) => {
   res.send(req.user);
 });
 
+
+// edit the information 
 router.patch("/me", auth, verify, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password"];
@@ -151,6 +170,8 @@ const upload = multer({
   },
 });
 
+// upload the profile pic
+
 router.post(
   "/me/avatar",
   auth,
@@ -171,6 +192,8 @@ router.post(
   }
 );
 
+//delete profile pic 
+
 router.delete("/me/avatar", auth, async (req, res) => {
   try {
     req.user.avatar = undefined;
@@ -181,6 +204,7 @@ router.delete("/me/avatar", auth, async (req, res) => {
   }
 });
 
+// get profile pic
 router.get("/me/:id/avatar", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

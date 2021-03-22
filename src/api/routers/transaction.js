@@ -14,6 +14,7 @@ import sendTransaction from '../utils/transactionHelper'
 import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '../emails/mail'
 
 
+// claim the signup bonus once your account is verified and mnemonic is provided
   router.post("/claim-bonus",auth,verify, async (req, res) => {
     try {
       
@@ -23,6 +24,9 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
       res.status(400).send(e);
     }
   });
+
+
+// to see the availabe balance 
 
   router.get('/get-balance',auth, verify, async(req, res)=>{
     try {
@@ -35,10 +39,10 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
     }
   })
 
+// to send token to other user
+// amount shoud be in wei
   router.post('/me/send',auth, verify, async(req, res)=>{
     try {
-      console.log(req.body.recipient);
-      console.log(req.body.amount);
       const receiverId = req.body.recipient
       const recipient = await User.findByEmail(receiverId)
       console.log(1);
@@ -64,6 +68,7 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
     }
   })
 
+// see a particular transaction Id  
   router.get('/transaction/:id',auth,async (req,res)=>{
     const _id = req.params.id
     try{
@@ -78,7 +83,9 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
     }
 })
 
-
+// see all the transaction of the account 
+// user can see their transactions
+// admin can see all transaction
   router.get('/transactions',auth, verify, async(req, res)=>{
 
     try { // admin will be able to see all transaction
