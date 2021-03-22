@@ -43,6 +43,8 @@ This is a node API which connects to blockchain network
     - used for importing the contracts from it 
 - `truffle-plugin-verify`
     - used to verify contract on network
+- `bip39`
+    - used to create mnemonic for ethereum wallet
 - Dev Dependencies 
     - `nodemon`
         - to keep server running while development 

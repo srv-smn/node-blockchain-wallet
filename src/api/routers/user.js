@@ -8,17 +8,28 @@ import multer from"multer"
 import sharp from"sharp"
 import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from"../emails/mail"
 import getAddress from'../utils/userHelper'
+//import bip39 from 'bip39'
+//unable use es6 syntax as it is showing error
+const bip39 = require('bip39')
+
+
 
 // user can signup
 router.post("/signup", async (req, res) => {
   const user = new User(req.body);
 
   try {
-    await user.save();
+    const mnemonic = bip39.generateMnemonic();
+    const address = await getAddress(mnemonic)
+    user.account = address
+    user.phrase = mnemonic
+    await user.save()
+
     await sendSignUpOtp(user);
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
