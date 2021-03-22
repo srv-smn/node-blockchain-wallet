@@ -19,6 +19,8 @@ router.post("/signup", async (req, res) => {
   const user = new User(req.body);
 
   try {
+
+  // auto generate wallet phrase
     const mnemonic = bip39.generateMnemonic();
     const address = await getAddress(mnemonic)
     user.account = address

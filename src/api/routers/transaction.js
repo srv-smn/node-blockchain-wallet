@@ -46,7 +46,7 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
       const receiverId = req.body.recipient
       const recipient = await User.findByEmail(receiverId)
       console.log(1);
-      const amount = req.body.amount
+      const amount =  web3.utils.toWei(req.body.amount, 'ether');
       console.log(2);
       await sendTransaction(req.user, recipient, amount)
       
