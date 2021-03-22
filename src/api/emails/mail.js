@@ -46,8 +46,8 @@ const ReceivedTokenMail = async(senderEmail, receiverEmail, senderAcc, receiverA
 }
 
 const sendTokenMail = async(senderEmail, receiverEmail, senderAcc, receiverAcc, amount , totalAmount, senderName) =>{
-  const subject = `${amount} Token has been debited into your account `
-  const matter = `Dear ${senderName} \n ${amount} Token has been debited from your MyToken wallet to ${receiverAcc} having account no. ${receiverAcc}. \n Your available balance is ${totalAmount}`
+  const subject = `${amount} Token has been debited from your account `
+  const matter = `Dear ${senderName} \n ${amount} Token has been debited from your MyToken wallet to ${receiverEmail} having account no. ${receiverAcc}. \n Your available balance is ${totalAmount}`
 
   sgMail.send({
       to: senderEmail,

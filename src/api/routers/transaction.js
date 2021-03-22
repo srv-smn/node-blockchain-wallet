@@ -10,7 +10,7 @@ import auth from"../middleware/auth"
 import verify from"../middleware/verified"
 import Transaction from"../models/transaction"
 import User from '../models/user'
-import sendTransaction from '../utils/transactionHelper'
+import {sendTransaction,sendTransactionViaAddress} from '../utils/transactionHelper'
 import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '../emails/mail'
 
 
@@ -67,6 +67,33 @@ import { sendSignUpOtp, sendSignInOTP ,ReceivedTokenMail,sendTokenMail} from '..
       res.status(400).send(error);
     }
   })
+
+  // send token to user from address
+  router.post('/me/send/address',auth, verify, async(req, res)=>{
+    try {
+      const receiverId = req.body.recipient
+      //const recipient = await User.findByEmail(receiverId)
+      console.log(1);
+      const amount =  web3.utils.toWei(req.body.amount, 'ether');
+      console.log(2);
+      await sendTransactionViaAddress(req.user, receiverId, amount)
+      
+      const sendersBalance = await token.methods.balanceOf(req.user.account).call()
+      const sendersBalanceStandart = await web3.utils.fromWei(sendersBalance, 'ether')
+
+      const balance = await web3.utils.fromWei(amount, 'ether')
+
+      // ReceivedTokenMail(req.user.email,recipient.email,req.user.account,recipient.account ,balance,receiverBalanceStandart,recipient.name)
+      sendTokenMail(req.user.email,'outside wallet user',req.user.account,receiverId ,balance,sendersBalanceStandart,req.user.name)
+      res.status(201).send();
+
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  }) 
+
+
 
 // see a particular transaction Id  
   router.get('/transaction/:id',auth,async (req,res)=>{

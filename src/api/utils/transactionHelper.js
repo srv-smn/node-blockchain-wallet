@@ -63,4 +63,58 @@ const sendTransaction = async (sender, receiver, amount) =>{
     }
 }
 
-module.exports = sendTransaction
+
+// send transaction via email
+const sendTransactionViaAddress = async (sender, receiverAddress, amount) =>{
+    if(sender.verified == false)
+    {
+        console.log(3);
+        throw new Error('Sender not Verified')
+    }
+
+
+    try {
+        console.log(5);
+        const provider = new HDWalletProvider(
+            sender.phrase,
+             process.env.ROPSTEN
+             );
+         console.log(6);
+         const web3 = new Web3(provider);
+         console.log(7);
+         const token = new web3.eth.Contract(MyToken.abi, MyToken.networks[3].address)
+            console.log(8);
+         const senderAcc = sender.account
+         const receiverAcc = receiverAddress
+         console.log(senderAcc);
+         console.log(receiverAcc);
+
+         console.log(9);
+     
+         const transaction = await token.methods.transfer(
+             receiverAcc, amount 
+         ).send({gas:'1000000' , from: senderAcc})
+
+         console.log(10);
+
+         const tr = new Transaction({
+            sender: sender.email,
+            receiver:'404@outsideplatform.com',
+            amount:web3.utils.fromWei(amount, 'ether'),
+            senderAddress:senderAcc,
+            receiverAddress:receiverAcc,
+            transactionHash:transaction.transactionHash  
+        })
+        console.log(11);
+        await tr.save()
+        console.log(12);
+        
+    } catch (error) {
+        console.log(13);
+        console.log(error);
+        throw error  
+    }
+}
+
+
+module.exports = {sendTransaction,sendTransactionViaAddress}
