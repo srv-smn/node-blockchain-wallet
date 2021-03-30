@@ -118,7 +118,7 @@ This is a node API which connects to blockchain network
 - ROPSTEN
 - ETHERSCAN_API
 
-Token verified on Rinkeby: https://rinkeby.etherscan.io/address/0x8f17e7a68ae412D1D9F37B2C83BdC070B32a8dE7
 
-Token Verified on Ropsten: https://ropsten.etherscan.io/token/0xFb2866A839001078da182f0aC3b9ED524Cef681E          
+Token Verified on Ropsten: https://ropsten.etherscan.io/token/0xFb2866A839001078da182f0aC3b9ED524Cef681E 
 
+Token is also available on uniswap ropsten network on ETH-MTK pool, to swap token add MTK token on uniswap in add token section at address 0xFb2866A839001078da182f0aC3b9ED524Cef681E 
