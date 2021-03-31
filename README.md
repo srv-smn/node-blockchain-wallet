@@ -119,6 +119,7 @@ This is a node API which connects to blockchain network
 - ETHERSCAN_API
 
 
-Token Verified on Ropsten: https://ropsten.etherscan.io/token/0xFb2866A839001078da182f0aC3b9ED524Cef681E 
+Token Verified on Ropsten: https://ropsten.etherscan.io/token/0x449b3f9FCF26f5690815b155E680052BCd33BAaD
+Staking Contract verified on Ropsten : https://ropsten.etherscan.io/address/0x14ea2df563b35A8b1692cB2f9C735EA240Bac226 
 
-Token is also available on uniswap ropsten network on ETH-MTK pool, to swap token add MTK token on uniswap in add token section at address 0xFb2866A839001078da182f0aC3b9ED524Cef681E 
+Token is also available on uniswap ropsten network on ETH-MTK pool, to swap token add MTK token on uniswap in add token section at address 0x449b3f9FCF26f5690815b155E680052BCd33BAaD 
