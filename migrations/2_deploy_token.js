@@ -14,5 +14,5 @@ module.exports = async function (deployer) {
   const staking = await Staking.deployed();
 
   // transfering 50% of the token to staking smart contract
-  await myToken.transfer(staking.address, '500000');
+  await myToken.transfer(staking.address, '500000000000000000000000');
 };

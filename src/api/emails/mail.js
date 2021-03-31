@@ -73,9 +73,48 @@ const sendTokenMail = async (
   });
 };
 
+const stakeTokenMail = async (senderEmail, amount, senderName) => {
+  const subject = `${amount} Token has been staked `;
+  const matter = `Dear ${senderName} \n ${amount} MTK Token has been staked, you had started earning staking reward. Maturity period is 21 days.\n Don't forget to claim the reward after 21 days.\n Note: You can unstake your token anytime you want but the reward will be based upon the nuper of days you have staked the token. \n Remenber: Always claim the reward before unstaking the token`;
+
+  sgMail.send({
+    to: senderEmail,
+    from: 'sourav2fly@gmail.com',
+    subject,
+    text: matter,
+  });
+};
+
+const unstakeTokenMail = async (senderEmail, amount, senderName) => {
+  const subject = `${amount} Token has been unstaked `;
+  const matter = `Dear ${senderName} \n ${amount} MTK Token has been unstaked, You can again stake it and earn reward.`;
+
+  sgMail.send({
+    to: senderEmail,
+    from: 'sourav2fly@gmail.com',
+    subject,
+    text: matter,
+  });
+};
+
+const claimBonusMail = async (senderEmail, amount, senderName) => {
+  const subject = `${amount} Token has been rewarded to you as a bonus `;
+  const matter = `Dear ${senderName} \n ${amount} MTK Token has been rewarded to you as a bonus, your staking time has been reset.`;
+
+  sgMail.send({
+    to: senderEmail,
+    from: 'sourav2fly@gmail.com',
+    subject,
+    text: matter,
+  });
+};
+
 module.exports = {
   sendSignUpOtp,
   sendSignInOTP,
   ReceivedTokenMail,
   sendTokenMail,
+  stakeTokenMail,
+  unstakeTokenMail,
+  claimBonusMail,
 };
